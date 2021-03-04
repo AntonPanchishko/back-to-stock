@@ -1,6 +1,6 @@
 package com.example.model;
 
-public class User {
+public class User implements Subscriber {
     private String name;
     private boolean premium;
     private int age;
@@ -27,5 +27,19 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "name='" + name + '\''
+                + ", premium=" + premium
+                + ", age=" + age + '}';
+    }
+
+    @Override
+    public String notifySubscriber() {
+        return new String("Dear " + name
+                + " the product on which you subscribed is present in your stock");
     }
 }

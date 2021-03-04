@@ -10,4 +10,7 @@ public interface BackToStockService {
 
     List<User> subscribedUsers(Product product);
 
+    List<String> notifyUser(Product product);
+
+    void addNewProductToSubscribePool(Product product);
 }
