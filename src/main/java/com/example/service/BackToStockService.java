@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dao.SubscribePool;
 import com.example.model.Product;
 import com.example.model.User;
 import java.util.List;
@@ -13,4 +14,6 @@ public interface BackToStockService {
     List<String> notifyUser(Product product);
 
     void addNewProductToSubscribePool(Product product);
+
+    SubscribePool getAllSubscriber();
 }

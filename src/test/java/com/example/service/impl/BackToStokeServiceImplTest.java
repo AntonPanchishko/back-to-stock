@@ -1,7 +1,7 @@
 package com.example.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.example.dao.SubscribePool;
+import com.example.lib.Injector;
 import com.example.model.Product;
 import com.example.model.ProductCategory;
 import com.example.model.User;
@@ -39,22 +39,20 @@ class BackToStokeServiceImplTest {
 
     @BeforeEach
     void beforeEachTest_Ok() {
-        SubscribePool.getProductStock().clear();
+        backToStockService.getAllSubscriber().getSubscribePool().clear();
         backToStockService.addNewProductToSubscribePool(firstProduct);
     }
 
     @Test
     void subscribe_Ok() {
         localSubscribing();
-
-        assertEquals(SubscribePool.getProductStock()
+        assertEquals(backToStockService.getAllSubscriber().getSubscribePool()
                 .get(firstProduct).size(), CORRECT_SIZE_AFTER_SUBSCRIBING);
     }
 
     @Test
     void subscribedUsers_Ok() {
         localSubscribing();
-
         List<User> expectedList = new ArrayList<>(List.of(alice, jhon, bob));
         List<User> actualList = backToStockService.subscribedUsers(firstProduct);
         for (int i = 0; i < expectedList.size(); i++) {
@@ -78,7 +76,8 @@ class BackToStokeServiceImplTest {
 
         backToStockService.addNewProductToSubscribePool(firstProduct);
 
-        assertEquals(1, SubscribePool.getProductStock().size());
+        assertEquals(1, backToStockService.getAllSubscriber()
+                .getSubscribePool().size());
     }
 
     private void localSubscribing() {

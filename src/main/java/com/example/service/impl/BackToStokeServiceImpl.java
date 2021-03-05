@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.dao.SubscribePool;
+import com.example.lib.Service;
 import com.example.model.Product;
 import com.example.model.ProductCategory;
 import com.example.model.User;
@@ -9,27 +10,29 @@ import com.example.service.StockService;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class BackToStokeServiceImpl implements BackToStockService {
     private final StockService stockService = new StockServiceImpl();
+    private final SubscribePool subscribePool = new SubscribePool();
 
     @Override
     public void subscribe(User user, Product product) {
-        List<User> users = new ArrayList<>(SubscribePool.getProductStock().get(product));
+        List<User> users = new ArrayList<>(subscribePool.getSubscribePool().get(product));
         users.add(user);
-        SubscribePool.getProductStock().replace(product, userSort(users, product));
+        subscribePool.getSubscribePool().replace(product, userSort(users, product));
     }
 
     @Override
     public List<User> subscribedUsers(Product product) {
-        return SubscribePool.getProductStock().get(product);
+        return subscribePool.getSubscribePool().get(product);
     }
 
     @Override
     public List<String> notifyUser(Product product) {
         List<String> lettersForUser = new ArrayList<>();
         for (int i = 0; i < stockService.getAmountOfProduct(product.getId())
-                && i < SubscribePool.getProductStock().get(product).size(); i++) {
-            lettersForUser.add(SubscribePool.getProductStock()
+                || i < subscribePool.getSubscribePool().get(product).size(); i++) {
+            lettersForUser.add(subscribePool.getSubscribePool()
                     .get(product).get(i).notifySubscriber());
         }
         return lettersForUser;
@@ -37,7 +40,12 @@ public class BackToStokeServiceImpl implements BackToStockService {
 
     @Override
     public void addNewProductToSubscribePool(Product product) {
-        SubscribePool.getProductStock().put(product, List.of());
+        subscribePool.getSubscribePool().put(product, List.of());
+    }
+
+    @Override
+    public SubscribePool getAllSubscriber() {
+        return subscribePool;
     }
 
     private List<User> userSort(List<User> users, Product product) {
