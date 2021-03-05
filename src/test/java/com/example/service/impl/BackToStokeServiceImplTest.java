@@ -39,7 +39,7 @@ class BackToStokeServiceImplTest {
 
     @BeforeEach
     void beforeEachTest_Ok() {
-        SubscribePool.getProductStock().clear();
+        backToStockService.getAllSubscriber().getSubscribePool().clear();
         backToStockService.addNewProductToSubscribePool(firstProduct);
     }
 
@@ -47,7 +47,7 @@ class BackToStokeServiceImplTest {
     void subscribe_Ok() {
         localSubscribing();
 
-        assertEquals(SubscribePool.getProductStock()
+        assertEquals(backToStockService.getAllSubscriber().getSubscribePool()
                 .get(firstProduct).size(), CORRECT_SIZE_AFTER_SUBSCRIBING);
     }
 
@@ -78,7 +78,7 @@ class BackToStokeServiceImplTest {
 
         backToStockService.addNewProductToSubscribePool(firstProduct);
 
-        assertEquals(1, SubscribePool.getProductStock().size());
+        assertEquals(1, backToStockService.getAllSubscriber().getSubscribePool().size());
     }
 
     private void localSubscribing() {

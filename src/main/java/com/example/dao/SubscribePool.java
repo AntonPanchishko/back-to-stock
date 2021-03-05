@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SubscribePool {
-    private static HashMap<Product, List<User>> productStock = new HashMap<>();
+    private HashMap<Product, List<User>> subscribePool = new HashMap<>();
 
-    public static HashMap<Product, List<User>> getProductStock() {
-        return productStock;
+    public HashMap<Product, List<User>> getSubscribePool() {
+        return subscribePool;
     }
 }

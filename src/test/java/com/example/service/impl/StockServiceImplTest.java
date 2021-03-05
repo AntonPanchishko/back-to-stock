@@ -2,7 +2,6 @@ package com.example.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import com.example.dao.Stock;
 import com.example.exception.IncorrectValueException;
 import com.example.exception.NoSuchProductException;
 import com.example.model.Product;
@@ -16,26 +15,27 @@ class StockServiceImplTest {
     private static final StockService stockService = new StockServiceImpl();
     private static final int STOCK_LENGTH_AFTER_ADDING_NEW_ELEMENT = 2;
     private static final String INCORRECT_PRODUCT_ID = "7";
+    private static final int AMOUNT_OF_FIRST_PRODUCT = 2;
     private static final Product firstProduct = new Product("1", ProductCategory.MEDICAL);
 
     @BeforeAll
     public static void init() {
-        StockService stockService = new StockServiceImpl();
-        stockService.addNewProduct(firstProduct, 2);
+        stockService.addNewProduct(firstProduct, AMOUNT_OF_FIRST_PRODUCT);
     }
 
     @Test
     void addNewProduct_Ok() {
         Product newProduct = new Product("2", ProductCategory.DIGITAL);
-        stockService.addNewProduct(newProduct, 2);
-        assertEquals(STOCK_LENGTH_AFTER_ADDING_NEW_ELEMENT, Stock.getStock().size());
+        stockService.addNewProduct(newProduct, AMOUNT_OF_FIRST_PRODUCT);
+        assertEquals(STOCK_LENGTH_AFTER_ADDING_NEW_ELEMENT,
+                stockService.getAllProducts().getStock().size());
     }
 
     @Test
     void addNewProduct_NotOk() {
         Product incorrectProduct = new Product("", ProductCategory.MEDICAL);
         assertThrows(IncorrectValueException.class, () ->
-        {stockService.addNewProduct(incorrectProduct, 2);
+        {stockService.addNewProduct(incorrectProduct, AMOUNT_OF_FIRST_PRODUCT);
         });
     }
 
@@ -54,6 +54,6 @@ class StockServiceImplTest {
 
     @AfterAll
     public static void clean() {
-        Stock.getStock().clear();
+        stockService.getAllProducts().getStock().clear();
     }
 }
