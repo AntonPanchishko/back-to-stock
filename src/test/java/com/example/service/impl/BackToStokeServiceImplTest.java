@@ -1,7 +1,7 @@
 package com.example.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.example.lib.Injector;
+import com.example.dao.SubscribePool;
 import com.example.model.Product;
 import com.example.model.ProductCategory;
 import com.example.model.User;
@@ -46,6 +46,7 @@ class BackToStokeServiceImplTest {
     @Test
     void subscribe_Ok() {
         localSubscribing();
+
         assertEquals(backToStockService.getAllSubscriber().getSubscribePool()
                 .get(firstProduct).size(), CORRECT_SIZE_AFTER_SUBSCRIBING);
     }
@@ -53,6 +54,7 @@ class BackToStokeServiceImplTest {
     @Test
     void subscribedUsers_Ok() {
         localSubscribing();
+
         List<User> expectedList = new ArrayList<>(List.of(alice, jhon, bob));
         List<User> actualList = backToStockService.subscribedUsers(firstProduct);
         for (int i = 0; i < expectedList.size(); i++) {
@@ -76,8 +78,7 @@ class BackToStokeServiceImplTest {
 
         backToStockService.addNewProductToSubscribePool(firstProduct);
 
-        assertEquals(1, backToStockService.getAllSubscriber()
-                .getSubscribePool().size());
+        assertEquals(1, backToStockService.getAllSubscriber().getSubscribePool().size());
     }
 
     private void localSubscribing() {

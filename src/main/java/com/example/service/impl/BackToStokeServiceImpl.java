@@ -1,18 +1,15 @@
 package com.example.service.impl;
 
 import com.example.dao.SubscribePool;
-import com.example.lib.Service;
 import com.example.model.Product;
 import com.example.model.ProductCategory;
 import com.example.model.User;
 import com.example.service.BackToStockService;
-import com.example.service.StockService;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 public class BackToStokeServiceImpl implements BackToStockService {
-    private final StockService stockService = new StockServiceImpl();
+
     private final SubscribePool subscribePool = new SubscribePool();
 
     @Override
@@ -30,8 +27,7 @@ public class BackToStokeServiceImpl implements BackToStockService {
     @Override
     public List<String> notifyUser(Product product) {
         List<String> lettersForUser = new ArrayList<>();
-        for (int i = 0; i < stockService.getAmountOfProduct(product.getId())
-                || i < subscribePool.getSubscribePool().get(product).size(); i++) {
+        for (int i = 0; i < subscribePool.getSubscribePool().get(product).size(); i++) {
             lettersForUser.add(subscribePool.getSubscribePool()
                     .get(product).get(i).notifySubscriber());
         }

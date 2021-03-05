@@ -3,11 +3,9 @@ package com.example.service.impl;
 import com.example.dao.Stock;
 import com.example.exception.IncorrectValueException;
 import com.example.exception.NoSuchProductException;
-import com.example.lib.Service;
 import com.example.model.Product;
 import com.example.service.StockService;
 
-@Service
 public class StockServiceImpl implements StockService {
     private Stock stock = new Stock();
 

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.example.exception.IncorrectValueException;
 import com.example.exception.NoSuchProductException;
-import com.example.lib.Injector;
 import com.example.model.Product;
 import com.example.model.ProductCategory;
 import com.example.service.StockService;
